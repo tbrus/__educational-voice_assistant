@@ -1,8 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import webbrowser
-
-
+from bs4 import BeautifulSoup
+import requests
+import pprint
+import re
 
 def search_youtube(text):
     query = text.split('for ')[-1]
@@ -20,6 +22,18 @@ def search_wikipedia(text):
     query = text.split('for ')[-1]
     url = 'https://www.wikipedia.com/wiki/' + query
     webbrowser.open(url)
+
+
+def play_first_youtube(text):
+    query = text.split('play ')[-1]
+    url = 'https://www.youtube.com/results?search_query=' + query
+    response = requests.get(url).text
+    soup = BeautifulSoup(response, 'lxml')
+
+    search_response = re.findall(r'href=\"\/watch\?v=(.{11})', response)
+    video_url = 'https://www.youtube.com/watch?v=' + search_response[0]
+
+    webbrowser.open(video_url)
 
 
 # def search_google(text):

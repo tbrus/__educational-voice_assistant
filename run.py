@@ -3,7 +3,7 @@ import datetime
 from functions.main_functions import speak, get_audio
 from functions.simple_functions import get_time, get_today_date
 from functions.weather_functions import get_temperature, get_weather
-from functions.network_functions import search_youtube, search_google, search_wikipedia
+from functions.network_functions import search_youtube, search_google, search_wikipedia, play_first_youtube
 import webbrowser
 
 feelings = ['how are you', 'how\'s it going', 'how is it going', 'what about you', 'how about you']
@@ -112,10 +112,10 @@ if __name__ == '__main__':
 
                 # PLAY YOUTUBE SONG
 
-                        # Search Youtube and play 1st result
-                        # elif 'search google for' in text:
-                        #     search_google(text)
-                        #     speak('What else can I do for you?')
+                        # Play 1st result Youtube search
+                        elif 'play' in text:
+                            play_first_youtube(text)
+
 
                 # MAIL
 
@@ -140,6 +140,6 @@ if __name__ == '__main__':
 
 
 
-                    # If don't understand
-                    else:
-                        speak('I don\'t understand. Could you repeat?')
+                        # If don't understand
+                        else:
+                            speak('I don\'t understand. Could you repeat?')
