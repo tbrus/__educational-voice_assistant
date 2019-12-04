@@ -1,7 +1,8 @@
 import os
 import datetime
 from functions.main_functions import speak, get_audio
-from functions.simple_functions import get_time
+from functions.simple_functions import get_time, get_today_date
+from functions.weather_functions import get_temperature, get_weather
 
 feelings = ['how are you', 'how\'s it going', 'how is it going', 'what about you', 'how about you']
 greetings = ['hi', 'hello', 'hey', 'good morning', 'good afternoon']
@@ -34,17 +35,32 @@ if __name__ == '__main__':
                                 speak('I\'m good as always, thank you.')
 
                         # Time
-                        if 'time' in text:
+                        if 'time' in text and 'what' in text:
                             speak(get_time())
+                            speak('What else can I do for you?')
+
+                        # Date Today
+                        elif 'date' in text and 'today' in text:
+                            speak(get_today_date())
+                            speak('What else can I do for you?')
+
+                         # Get current temperature
+                        elif 'what' in text and 'temperature' in text:
+                            speak(get_temperature('Warsaw'))
+                            speak('What else can I do for you?')
+
+                         # Get current temperature
+                        elif 'what' in text and 'weather' in text:
+                            speak(get_weather('Warsaw'))
+                            speak('What else can I do for you?')
 
                         # Sleep
-                        if 'sleep' in text:
+                        elif 'sleep' in text:
                             print('gonna sleep')
                             break
 
-
                         # When everything during request is done
-                        speak('What else can I do for you?')
+
 
 
                     # If don't understand
