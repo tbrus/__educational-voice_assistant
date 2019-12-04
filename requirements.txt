@@ -11,6 +11,7 @@ pygame==1.9.6
 requests==2.22.0
 ruamel.yaml==0.16.5
 ruamel.yaml.clib==0.2.0
+selenium==3.141.0
 six==1.13.0
 soupsieve==1.9.5
 SpeechRecognition==3.8.1

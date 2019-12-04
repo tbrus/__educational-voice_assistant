@@ -134,3 +134,4 @@ dmypy.json
 # Audio files
 *.mp3
 */*.mp3
+chromedriver*
