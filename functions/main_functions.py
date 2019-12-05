@@ -32,7 +32,7 @@ def get_audio():
             return sentence.lower()
 
         except sr.UnknownValueError:
-            print('Error 1')
+            pass
 
         except sr.RequestError:
-            print('Error 2')
+            pass

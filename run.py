@@ -3,11 +3,11 @@ import datetime
 from functions.main_functions import speak, get_audio
 from functions.simple_functions import get_time, get_today_date
 from functions.weather_functions import get_temperature, get_weather
-from functions.network_functions import search_youtube, search_google, search_wikipedia, play_first_youtube
+from functions.network_functions import search_youtube, search_google, search_wikipedia, play_first_youtube, play_nth_youtube
 import webbrowser
 
 feelings = ['how are you', 'how\'s it going', 'how is it going', 'what about you', 'how about you']
-greetings = ['hi', 'hello', 'hey', 'good morning', 'good afternoon']
+greetings = ['hi ', 'hello ', 'hey ', 'good morning', 'good afternoon']
 
 
 
@@ -89,7 +89,27 @@ if __name__ == '__main__':
                         # Search Youtube for smth
                         elif 'search youtube for' in text or 'youtube for' in text:
                             search_youtube(text)
-                            speak('What else can I do for you?')
+
+                            speak('Do you want to play something?')
+                            decision = get_audio()
+
+                            if 'yes' in decision or 'yes please' in decision:
+                                speak('Which one do you want?')
+                                number_video = get_audio()
+
+                                if 'first' in number_video:
+                                    play_nth_youtube(text, 0)
+                                elif 'two' in number_video or 'second' in number_video:
+                                    play_nth_youtube(text, 1)
+                                elif 'three' in number_video or 'third' in number_video:
+                                    play_nth_youtube(text, 2)
+                                elif 'four' in number_video or 'fourth' in number_video:
+                                    play_nth_youtube(text, 3)
+                                elif 'five' in number_video or 'fifth' in number_video:
+                                    play_nth_youtube(text, 4)
+
+                            else:
+                                speak('What else can I do for you?')
 
                         # Search Google for smth
                         elif 'search google for' in text or 'google for' in text:
@@ -130,16 +150,19 @@ if __name__ == '__main__':
                         #     speak('What else can I do for you?')
 
 
-                # SLEEP
+
                         # Sleep
                         elif 'sleep' in text:
                             print('gonna sleep')
                             break
 
-                        # When everything during request is done
-
-
-
                         # If don't understand
                         else:
                             speak('I don\'t understand. Could you repeat?')
+
+
+                    # Default timeout is 5 sec so if there is no speeach recognized
+                    # after 5 sec assistant is going to sleep
+                    else:
+                        print('gonna sleep')
+                        break
