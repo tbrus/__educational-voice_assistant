@@ -6,7 +6,7 @@ from time import sleep
 
 
 def speak(text):
-    text_to_speech = gTTS(text=text, lang="en")
+    text_to_speech = gTTS(text=text, lang="pl")
     filename = "audio.mp3"
     text_to_speech.save(filename)
 
@@ -27,7 +27,7 @@ def get_audio():
         audio = r.listen(source)
 
         try:
-            sentence = r.recognize_google(audio)
+            sentence = r.recognize_google(audio, language="pl-PL")
             print(sentence.lower())
             return sentence.lower()
 
@@ -36,3 +36,4 @@ def get_audio():
 
         except sr.RequestError:
             pass
+
