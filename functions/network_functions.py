@@ -2,6 +2,8 @@ import webbrowser
 import requests
 import re
 import os
+import smtplib
+
 
 def search_youtube(text):
     if 'youtube' in text:
@@ -57,3 +59,28 @@ def play_nth_youtube(text, n):
     webbrowser.open(video_url)
 
 
+
+def create_email(login, receiver, subject, message):
+    subject = subject[0].upper() + subject[1:]
+    message = message[0].upper() + message[1:]
+
+    content = f"""\
+FROM: {login}
+TO: {receiver}
+SUBJECT: {subject}
+
+{message}
+"""
+    print('\n\n', content)
+
+    return content
+
+
+def send_email(login, password, receiver, content):
+    mail = smtplib.SMTP('smtp.gmail.com', 587)
+    mail.ehlo()
+    mail.starttls()
+
+    mail.login(login, password)
+    mail.sendmail(login, receiver, content.encode('UTF-8'))
+    mail.close()

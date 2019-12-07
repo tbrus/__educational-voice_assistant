@@ -24,7 +24,7 @@ def get_audio():
         r.energy_threshold = 2000
         r.dynamic_energy_threshold = True
         r.adjust_for_ambient_noise(source, duration=1)
-        audio = r.listen(source)
+        audio = r.listen(source, timeout=15)
 
         try:
             sentence = r.recognize_google(audio, language="pl-PL")

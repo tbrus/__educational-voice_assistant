@@ -3,8 +3,9 @@ import datetime
 from functions.main_functions import speak, get_audio
 from functions.simple_functions import get_time, get_today_date
 from functions.weather_functions import get_temperature, get_weather
-from functions.network_functions import search_youtube, search_google, search_wikipedia, play_first_youtube, play_nth_youtube
+from functions.network_functions import search_youtube, search_google, search_wikipedia, play_first_youtube, play_nth_youtube, send_email, create_email
 import webbrowser
+import config
 
 
 if __name__ == '__main__':
@@ -51,12 +52,12 @@ if __name__ == '__main__':
 
                          # Get current temperature
                         elif 'temperatura' in text or 'temperaturę' in text:
-                            speak(get_temperature('Warsaw'))
+                            speak(get_temperature(config.city))
                             speak('Co jeszcze mogę dla ciebie zrobić?')
 
                          # Get current temperature
                         elif 'jaka' in text and 'pogoda' in text:
-                            speak(get_weather('Warsaw'))
+                            speak(get_weather(config.city))
                             speak('Co jeszcze mogę dla ciebie zrobić?')
 
 
@@ -142,15 +143,28 @@ if __name__ == '__main__':
 
                 # MAIL
 
-                        # Check mails and read headers and from who
-                        # elif 'search youtube for' in text:
-                        #     search_youtube(text)
-                        #     speak('What else can I do for you?')
-
                         # Send mail
-                        # elif 'search youtube for' in text:
-                        #     search_youtube(text)
-                        #     speak('What else can I do for you?')
+                        elif 'wyślij mail' in text or 'wyślij email' in text:
+                            speak('Do kogo wysłać?')
+                            receiver = input('Odbiorca: ')
+                            speak('Podaj temat.')
+                            subject = get_audio()
+                            speak('Podaj treść maila.')
+                            message = get_audio()
+
+                            email = create_email(login=config.login, receiver=receiver,
+                                                  subject=subject, message=message)
+
+                            speak('Czy na pewno wysłać?')
+                            decision = get_audio()
+
+                            if 'tak' in decision or 'proszę' in decision or 'wyślij' in decision:
+                                send_email(login=config.login, password=config.password,
+                                            receiver=receiver, content=email)
+                                speak('Wysłano.')
+                                speak('Co jeszcze mogę dla ciebie zrobić?')
+                            else:
+                                speak('Co mam teraz zrobić?')
 
 
 

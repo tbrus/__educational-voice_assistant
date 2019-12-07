@@ -16,7 +16,6 @@ def get_temperature(city_name):
     return f'Jest {current_temperature} stopni.'
 
 
-
 def get_weather(city_name):
     url = base_url + "appid=" + api_key + "&q=" + city_name
     response = requests.get(url)
