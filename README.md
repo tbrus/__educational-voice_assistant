@@ -29,3 +29,10 @@ User can:
 * open sites like google, facebook, gmail, youtube
 * send mails via gmail
 * play first youtube video or choose whichever during searching
+* make screenshot (you have to have installed scrot)
+* turn volume up, turn volume down or set volume (with pyalsastudio)
+
+
+## Future
+
+App will be develop. There may be GUI and other funcionalities, like available languages or launching with os start.

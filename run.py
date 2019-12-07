@@ -2,6 +2,7 @@ import os
 import config
 import datetime
 import webbrowser
+import alsaaudio
 from functions.main_functions import speak, get_audio
 from functions.simple_functions import get_time, get_today_date
 from functions.weather_functions import get_temperature, get_weather
@@ -25,6 +26,10 @@ if __name__ == '__main__':
                     text = get_audio()
                     if text != None:
 
+                        # Who are you
+                        if 'kim jesteś' in text:
+                            speak('Jestem twoim osobistym asystentem. Powstałem w celu usprawnienia twojej pracy.')
+
                         # Greetings
                         if 'cześć' in text or 'witaj' in text or 'hej' in text or 'dzień dobry' in text:
                             speak('Cześć, co u ciebie?')
@@ -41,6 +46,95 @@ if __name__ == '__main__':
                         # Thanks
                         elif 'dzięki' in text or 'dziękuję' in text:
                             speak('Nie ma za co')
+
+
+                # SCREENSHOT
+
+                        # Make screenshot
+                        elif 'zrób screenshot' in text or 'zrób screen' in text:
+                            os.system("scrot -b '%Y:%m:%d:%H:%M:%S.png'")
+                            speak('Gotowe.')
+
+
+                # VOLUME
+
+                        # Turn volume up
+                        elif 'głośniej' in text:
+
+                            while True:
+                                speak('O ile?')
+
+                                try:
+                                    diff = int(get_audio())
+                                    m = alsaaudio.Mixer()
+                                    vol = m.getvolume()
+                                    vol = int(vol[0])
+                                    print(vol)
+
+                                    new_vol = vol + diff
+
+                                    if new_vol < 0:
+                                        new_vol = 0
+                                    elif new_vol > 100:
+                                        new_vol = 100
+
+                                    m.setvolume(new_vol)
+                                    print(new_vol)
+                                    break
+
+                                except:
+                                    speak('Podaj prawidłową wartość.')
+
+
+                        # Turn volume down
+                        elif 'ciszej' in text or 'przycisz' in text:
+
+                            while True:
+                                speak('O ile?')
+
+                                try:
+                                    diff = int(get_audio())
+                                    m = alsaaudio.Mixer()
+                                    vol = m.getvolume()
+                                    vol = int(vol[0])
+                                    print(vol)
+
+                                    new_vol = vol - diff
+
+                                    if new_vol < 0:
+                                        new_vol = 0
+                                    elif new_vol > 100:
+                                        new_vol = 100
+
+                                    m.setvolume(new_vol)
+                                    print(new_vol)
+                                    break
+
+                                except:
+                                    speak('Podaj prawidłową wartość.')
+
+
+                        # Set volume
+                        elif 'ustaw głośność' in text or 'ustaw dźwięk' in text:
+
+                            while True:
+                                speak('Na jaką wartość?')
+
+                                try:
+                                    vol = int(get_audio())
+                                    m = alsaaudio.Mixer()
+
+                                    if vol < 0:
+                                        vol = 0
+                                    elif vol > 100:
+                                        vol = 100
+
+                                    m.setvolume(vol)
+                                    print(vol)
+                                    break
+
+                                except:
+                                    speak('Podaj prawidłową wartość.')
 
 
                 # TIME AND DATE
@@ -101,22 +195,33 @@ if __name__ == '__main__':
                         # Open Google
                         elif 'otwórz google' in text or 'włącz google' in text:
                             webbrowser.open('https://www.google.com/', new=2)
-                            speak('Co jeszcze mogę dla ciebie zrobić?')
 
                         # Open Youtube
                         elif 'otwórz youtube' in text or 'włącz youtube' in text:
                             webbrowser.open('https://www.youtube.com/', new=2)
-                            speak('Co jeszcze mogę dla ciebie zrobić?')
 
                         # Open Gmail
                         elif 'otwórz gmail' in text or 'włącz gmail' in text:
                             webbrowser.open('https://www.gmail.com/', new=2)
-                            speak('Co jeszcze mogę dla ciebie zrobić?')
 
                         # Open Facebook
                         elif 'otwórz facebook' in text or 'włącz facebook' in text:
                             webbrowser.open('https://www.facebook.com/', new=2)
-                            speak('Co jeszcze mogę dla ciebie zrobić?')
+
+                        # Open Facebook
+                        elif 'otwórz map' in text or 'włącz map' in text:
+                            webbrowser.open('https://www.google.com/maps/', new=2)
+
+                        # Open Facebook
+                        elif 'otwórz tłumacz' in text or 'włącz tłumacz' in text:
+                            webbrowser.open('https://translate.google.com/', new=2)
+
+
+                # INSTALL APPS
+
+                        elif 'instaluj' in text:
+                            app = text.split('instaluj ')[-1]
+
 
 
                 # SEARCH NETWORK SITES
@@ -162,13 +267,11 @@ if __name__ == '__main__':
                         # Search Google for smth
                         elif 'znajdź' in text and 'google' in text or 'szukaj' in text and 'google' in text:
                             search_google(text)
-                            speak('Co jeszcze mogę dla ciebie zrobić?')
 
 
                         # Search Wikipedia for smth
                         elif 'znajdź' in text and 'wikipedia' in text or 'znajdź' in text and 'wikipedii' in text or 'szukaj' in text and 'wikipedia' in text or 'szukaj' in text and 'wikipedii' in text:
                             search_wikipedia(text)
-                            speak('Co jeszcze mogę dla ciebie zrobić?')
 
 
                 # PLAY YOUTUBE SONG
