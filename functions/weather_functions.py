@@ -4,6 +4,7 @@ import json
 from pprint import pprint
 import math
 
+
 api_key = '19e11c06536b27688aa1202d7d040992'
 base_url = "http://api.openweathermap.org/data/2.5/weather?"
 

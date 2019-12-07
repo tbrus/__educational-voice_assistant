@@ -1,11 +1,13 @@
 import os
+import config
 import datetime
+import webbrowser
 from functions.main_functions import speak, get_audio
 from functions.simple_functions import get_time, get_today_date
 from functions.weather_functions import get_temperature, get_weather
-from functions.network_functions import search_youtube, search_google, search_wikipedia, play_first_youtube, play_nth_youtube, send_email, create_email
-import webbrowser
-import config
+from functions.network_functions import (search_youtube, search_google, search_wikipedia,
+                                        play_first_youtube, play_nth_youtube, send_email,
+                                        create_email)
 
 
 if __name__ == '__main__':
@@ -40,6 +42,9 @@ if __name__ == '__main__':
                         elif 'dzięki' in text or 'dziękuję' in text:
                             speak('Nie ma za co')
 
+
+                # TIME AND DATE
+
                         # Time
                         elif 'która godzina' in text or 'jaki czas' in text:
                             speak(get_time())
@@ -50,6 +55,9 @@ if __name__ == '__main__':
                             speak(get_today_date())
                             speak('Co jeszcze mogę dla ciebie zrobić?')
 
+
+                # WEATHER
+
                          # Get current temperature
                         elif 'temperatura' in text or 'temperaturę' in text:
                             speak(get_temperature(config.city))
@@ -59,6 +67,33 @@ if __name__ == '__main__':
                         elif 'jaka' in text and 'pogoda' in text:
                             speak(get_weather(config.city))
                             speak('Co jeszcze mogę dla ciebie zrobić?')
+
+
+                # OPEN APPS - ONLY FOR LINUX UBUNTU USERS
+
+                        # OPEN LIBREOFFICE WRITER IF EXISTS
+                        elif 'otwórz word' in text:
+                            os.system('libreoffice --writer')
+
+                        # OPEN LIBREOFFICE CALC IF EXISTS
+                        elif 'otwórz excel' in text:
+                            os.system('libreoffice --calc')
+
+                        # OPEN LIBREOFFICE DRAW IF EXISTS
+                        elif 'otwórz powerpoint' in text:
+                            os.system('libreoffice --draw')
+
+                        # OPEN GIMP IF EXISTS
+                        elif 'otwórz gimp' in text:
+                            os.system('gimp')
+
+                        # OPEN SUBLIME TEXT IF EXISTS
+                        elif 'otwórz edytor' in text:
+                            os.system('subl')
+
+                        # OPEN GOOGLE CHROME IF EXISTS
+                        elif 'otwórz chrome' in text:
+                            os.system('google-chrome')
 
 
                 # OPEN NETWORK SITES
@@ -123,10 +158,12 @@ if __name__ == '__main__':
                             else:
                                 speak('Co jeszcze mogę dla ciebie zrobić?')
 
+
                         # Search Google for smth
                         elif 'znajdź' in text and 'google' in text or 'szukaj' in text and 'google' in text:
                             search_google(text)
                             speak('Co jeszcze mogę dla ciebie zrobić?')
+
 
                         # Search Wikipedia for smth
                         elif 'znajdź' in text and 'wikipedia' in text or 'znajdź' in text and 'wikipedii' in text or 'szukaj' in text and 'wikipedia' in text or 'szukaj' in text and 'wikipedii' in text:
@@ -167,7 +204,6 @@ if __name__ == '__main__':
                                 speak('Co mam teraz zrobić?')
 
 
-
                         # Sleep
                         elif 'śpij' in text or 'idź spać' in text:
                             print('sleep')
@@ -180,6 +216,7 @@ if __name__ == '__main__':
 
                     # Default timeout is 5 sec so if there is no speeach recognized
                     # after 5 sec assistant is going to sleep
+                    # TIMEOUT IS SET FOR 15 SEC IN main_functions.py
                     else:
                         print('sleep')
                         break

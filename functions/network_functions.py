@@ -59,7 +59,6 @@ def play_nth_youtube(text, n):
     webbrowser.open(video_url)
 
 
-
 def create_email(login, receiver, subject, message):
     subject = subject[0].upper() + subject[1:]
     message = message[0].upper() + message[1:]
